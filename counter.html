@@ -1,0 +1,65 @@
+﻿<!doctype html>
+<html lang="en" ng-app="counter">
+<head>
+	<meta charset="utf-8">
+	<title>LLOC Counter</title>
+	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+		integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" 
+		crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" 
+		integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" 
+		crossorigin="anonymous">
+	
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-1.12.3.min.js"   
+		integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ="   
+		crossorigin="anonymous"></script>
+	
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
+		integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" 
+		crossorigin="anonymous"></script>
+
+	<!-- <link rel="stylesheet" href="backupStylesheet.css"> -->
+	
+	<script src="angular.min.js"></script>
+	<script src="counter_v7.2_FINAL.js"></script>
+</head>
+
+<body ng-controller="CountController">
+	<div class="container">
+		<div class="col-sm-8">
+            <h1>File Reader</h1>
+            <div class="panel">
+                <input type="file" id="files" name="files[]" webkitdirectory multiple />
+            </div>
+
+			<button class="btn btn-primary <!--btn-block-->" ng-click="downloadFile()">Download File</button>
+				
+			<h2>File Contents</h2>
+			<div class="list-group" ng-repeat="fileObj in superArray track by $index">
+				<a class="list-group-item">	
+					<h3><kbd>{{ $index + 1 }}</kbd> {{ fileObj.fileName }}<small> Total LLOC </small><span class="badge">{{ fileObj.lloc }}</span></h3>
+				</a>
+				<a class="list-group-item list-group-item-info">
+					<h4><strong>CLASSES</strong> <span class="badge">{{ fileObj.allMyClasses.length }}</span></h4>
+					<h4>Global LLOC <span class="badge">{{ fileObj.globalLLOC }}</span></h4>
+					<h4>Avg CLASS LLOC <span class="badge">{{ fileObj.classAvgLLOC }}</span></h4>
+					<h4>stdDev <span class="badge">{{ fileObj.classStdDevLLOC }}</span></h4>
+					<h4>Total METHOD LLOC <span class="badge">{{ fileObj.classTotalLLOC }}</span></h4>
+					<h4>Avg METHOD LLOC  <span class="badge">{{ fileObj.totalMethodLLOCavg }}</span></h4>
+					<h4>stdDev <span class="badge">{{ fileObj.classStdDevLLOC }}</span></h4>
+				</a>
+				<a class="list-group-item list-group-item-success" ng-repeat="classObj in fileObj.allMyClasses track by $index">
+					<p>{{ classObj.className }} <span class="badge">{{ classObj.lloc }}</span></p>
+					<p class="list-group-item list-group-item-warning" ng-repeat="methodObj in classObj.allMyMethods track by $index">{{ methodObj.methodName }} <span class="badge">{{ methodObj.lloc }}</span></p>
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
